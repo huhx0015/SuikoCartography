@@ -1,7 +1,5 @@
 package com.ycorner.suikocartography.utility;
 
-import android.content.Intent;
-
 /**
  * Created by huhx0015 on 12/21/15.
  */

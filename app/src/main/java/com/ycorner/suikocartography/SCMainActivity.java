@@ -14,20 +14,28 @@ import butterknife.ButterKnife;
 
 public class SCMainActivity extends Activity {
 
+    /** CLASS VARIABLES ________________________________________________________________________ **/
+
+    // AUDIO VARIABLES
     private HXGSEMusicEngine musicEngine;
     private HXGSESoundHandler soundHandler;
 
+    // VIEW INJECTION VARIABLES
     @Bind(R.id.sc_suikoden_1_maps_button) Button suikoden_1_maps_button;
+
+    /** ACTIVITY LIFECYCLE METHODS _____________________________________________________________ **/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initLayout();
+        initView();
         initAudio();
     }
 
-    private void initLayout() {
+    /** VIEW METHODS ___________________________________________________________________________ **/
+
+    private void initView() {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
