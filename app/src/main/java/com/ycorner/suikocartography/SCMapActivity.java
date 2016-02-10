@@ -45,6 +45,8 @@ public class SCMapActivity extends Activity {
 
         }
 
+        musicEngine.getInstance().playSongName("SONG 2", true); // TODO: Sample Suikoden Map song.
+
         initMapImage();
     }
 
@@ -52,5 +54,7 @@ public class SCMapActivity extends Activity {
         final InputStream inputStream = getResources().openRawResource(R.raw.gs1_world_map);
         final Drawable loadingResource = getResources().getDrawable(R.drawable.android_placeholder);
         TileBitmapDrawable.attachTileBitmapDrawable(worldMapView, inputStream, loadingResource, null);
+
+        worldMapView.setMaxScale(8); // Sets the maximum zoom in value for the map.
     }
 }

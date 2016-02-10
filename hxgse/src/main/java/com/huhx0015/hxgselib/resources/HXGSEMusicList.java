@@ -28,9 +28,9 @@ public class HXGSEMusicList {
 
         // Adds the HXGSESong objects to the LinkedList.
         // TODO: Define your song name and resources here.
-        musicList.add(new HXGSESong("SONG 1", R.raw.song_1_gamerstep_bass_triplets));
-        musicList.add(new HXGSESong("SONG 2", R.raw.song_2_ts_drums));
-        musicList.add(new HXGSESong("SONG 3", R.raw.song_3_ts_digi_lead_2));
+        musicList.add(new HXGSESong("SONG 1", R.raw.gs1_beginning_theme));
+        musicList.add(new HXGSESong("SONG 2", R.raw.gs1_tiny_characters_in_a_huge_world));
+        musicList.add(new HXGSESong("SONG 3", R.raw.gs2_name_entry));
 
         Log.d(TAG, "INITIALIZATION: List of songs has been constructed successfully.");
 
