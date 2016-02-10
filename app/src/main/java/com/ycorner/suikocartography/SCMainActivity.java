@@ -33,6 +33,20 @@ public class SCMainActivity extends Activity {
         initAudio();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        musicEngine.getInstance().playSongName("SONG 1", true); // TODO: Sample Suikoden Menu song.
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        musicEngine.getInstance().pauseSong();
+    }
+
     /** VIEW METHODS ___________________________________________________________________________ **/
 
     private void initView() {
@@ -55,8 +69,6 @@ public class SCMainActivity extends Activity {
     private void initAudio() {
         musicEngine.getInstance().initializeAudio(this);
         soundHandler.getInstance().initializeAudio(this, 2);
-
-        musicEngine.getInstance().playSongName("SONG 1", true); // TODO: Sample Suikoden Menu song.
     }
 
     private void launchMapsIntent(SCGameUtility.SCGameID id) {

@@ -34,6 +34,20 @@ public class SCMapActivity extends Activity {
         initView();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        musicEngine.getInstance().playSongName("SONG 2", true); // TODO: Sample Suikoden Map song.
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        musicEngine.getInstance().pauseSong();
+    }
+
     /** INITIALIZATION METHODS _________________________________________________________________ **/
 
     private void initView() {
@@ -44,8 +58,6 @@ public class SCMapActivity extends Activity {
         if (mapBundle != null) {
 
         }
-
-        musicEngine.getInstance().playSongName("SONG 2", true); // TODO: Sample Suikoden Map song.
 
         initMapImage();
     }
