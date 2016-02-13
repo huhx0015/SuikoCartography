@@ -28,9 +28,10 @@ public class HXGSESoundList {
 
         // Adds the HXGSESoundFX objects to the LinkedList.
         // TODO: Define your sound effects and associated resources here.
-        soundList.add(new HXGSESoundFX("SFX1", R.raw.sfx_1_sci_fi_5));
-        soundList.add(new HXGSESoundFX("SFX2", R.raw.sfx_2_machine));
-        soundList.add(new HXGSESoundFX("SFX3", R.raw.sfx_3_digital_life_1));
+        soundList.add(new HXGSESoundFX("MENU_SELECT", R.raw.gs_menu_select));
+        soundList.add(new HXGSESoundFX("MENU_SCROLL", R.raw.gs_menu_scroll));
+        soundList.add(new HXGSESoundFX("MENU_CANCEL", R.raw.gs_menu_cancel));
+        soundList.add(new HXGSESoundFX("RECRUITMENT", R.raw.gs_recruitment));
 
         Log.d(TAG, "INITIALIZATION: List of sound effects has been constructed successfully.");
 

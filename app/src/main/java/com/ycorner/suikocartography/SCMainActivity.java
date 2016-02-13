@@ -61,6 +61,7 @@ public class SCMainActivity extends Activity {
         suikoden_1_maps_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                soundHandler.playSoundFx("MENU_SELECT", 0);
                 launchMapsIntent(SCGameUtility.SCGameID.GENSO_SUIKODEN_1);
             }
         });
