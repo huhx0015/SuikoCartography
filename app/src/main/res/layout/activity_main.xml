@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.ycorner.suikocartography.SCMainActivity">
+    tools:context=".activities.SCMainActivity">
 
     <include layout="@layout/content_scmain" />
 

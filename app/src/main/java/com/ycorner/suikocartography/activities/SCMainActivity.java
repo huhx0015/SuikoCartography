@@ -1,4 +1,4 @@
-package com.ycorner.suikocartography;
+package com.ycorner.suikocartography.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import com.huhx0015.hxgselib.audio.HXGSEDolbyEffects;
 import com.huhx0015.hxgselib.audio.HXGSEMusicEngine;
 import com.huhx0015.hxgselib.audio.HXGSEPhysicalSound;
 import com.huhx0015.hxgselib.audio.HXGSESoundHandler;
+import com.ycorner.suikocartography.R;
 import com.ycorner.suikocartography.utility.SCConstants;
 import com.ycorner.suikocartography.utility.SCGameUtility;
 import butterknife.Bind;

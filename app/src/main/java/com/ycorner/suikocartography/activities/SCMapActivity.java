@@ -1,4 +1,4 @@
-package com.ycorner.suikocartography;
+package com.ycorner.suikocartography.activities;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import com.diegocarloslima.byakugallery.lib.TouchImageView;
 import com.huhx0015.hxgselib.audio.HXGSEMusicEngine;
 import com.huhx0015.hxgselib.audio.HXGSEPhysicalSound;
 import com.huhx0015.hxgselib.audio.HXGSESoundHandler;
+import com.ycorner.suikocartography.R;
+
 import java.io.InputStream;
 import butterknife.Bind;
 import butterknife.ButterKnife;
