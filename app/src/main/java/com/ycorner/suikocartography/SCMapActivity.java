@@ -1,8 +1,8 @@
 package com.ycorner.suikocartography;
 
-import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import com.diegocarloslima.byakugallery.lib.TileBitmapDrawable;
 import com.diegocarloslima.byakugallery.lib.TouchImageView;
@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 /**
  * Created by huhx0015 on 12/17/15.
  */
-public class SCMapActivity extends Activity {
+public class SCMapActivity extends AppCompatActivity {
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
