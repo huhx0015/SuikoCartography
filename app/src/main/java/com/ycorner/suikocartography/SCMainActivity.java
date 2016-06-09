@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import com.huhx0015.hxgselib.audio.HXGSEDolbyEffects;
 import com.huhx0015.hxgselib.audio.HXGSEMusicEngine;
 import com.huhx0015.hxgselib.audio.HXGSEPhysicalSound;
 import com.huhx0015.hxgselib.audio.HXGSESoundHandler;
@@ -55,11 +57,21 @@ public class SCMainActivity extends Activity {
         isPaused = true;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // Releases all audio-related instances if the application is terminating.
+        HXGSEMusicEngine.getInstance().releaseMedia();
+        HXGSESoundHandler.getInstance().releaseSound();
+        HXGSEDolbyEffects.getInstance().releaseDolbyEffects();
+    }
+
     /** ACTIVITY OVERRIDE METHODS ______________________________________________________________ **/
 
     @Override
     public void onBackPressed() {
-        HXGSESoundHandler.getInstance().playSoundFx("gs_menu_cancel", 0);
+        HXGSESoundHandler.getInstance().playSoundFx("MENU_CANCEL", 0);
         HXGSEMusicEngine.getInstance().stopSong();
         finish();
     }

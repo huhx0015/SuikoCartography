@@ -8,6 +8,7 @@ import android.view.View;
 import com.diegocarloslima.byakugallery.lib.TileBitmapDrawable;
 import com.diegocarloslima.byakugallery.lib.TouchImageView;
 import com.huhx0015.hxgselib.audio.HXGSEMusicEngine;
+import com.huhx0015.hxgselib.audio.HXGSEPhysicalSound;
 import com.huhx0015.hxgselib.audio.HXGSESoundHandler;
 import java.io.InputStream;
 import butterknife.Bind;
@@ -23,31 +24,42 @@ public class SCMapActivity extends Activity {
     // AUDIO VARIABLES
     private HXGSEMusicEngine musicEngine;
     private HXGSESoundHandler soundHandler;
+    private boolean isPaused = false;
+    private String currentSong = "SONG 2";
 
     // VIEW INJECTION VARIABLES
-    @Bind(R.id.touch_image_view_sample_image) TouchImageView worldMapView;
+    @Bind(R.id.suikoden_map_view) TouchImageView worldMapView;
 
     /** ACTIVITY LIFECYCLE METHODS _____________________________________________________________ **/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initView();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        musicEngine.getInstance().playSongName("SONG 2", true);
+        musicEngine.getInstance().playSongName(currentSong, true);
+        isPaused = false;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        HXGSEMusicEngine.getInstance().pauseSong(); // Pauses any song that is playing in the background.
+        HXGSEPhysicalSound.disablePhysSounds(false, this); // Re-enables the physical button's sound effects.
+        isPaused = true;
+    }
 
-        musicEngine.getInstance().pauseSong();
+    /** ACTIVITY OVERRIDE METHODS ______________________________________________________________ **/
+
+    @Override
+    public void onBackPressed() {
+        HXGSESoundHandler.getInstance().playSoundFx("MENU_CANCEL", 0);
+        HXGSEMusicEngine.getInstance().stopSong();
+        finish();
     }
 
     /** INITIALIZATION METHODS _________________________________________________________________ **/
@@ -56,26 +68,20 @@ public class SCMapActivity extends Activity {
         setContentView(R.layout.activity_map);
         ButterKnife.bind(this);
 
-        Bundle mapBundle = getIntent().getExtras();
-        if (mapBundle != null) {
-
-        }
-
         initMapImage();
     }
 
     private void initMapImage() {
         final InputStream inputStream = getResources().openRawResource(R.raw.gs1_world_map);
-        final Drawable loadingResource = getResources().getDrawable(R.drawable.android_placeholder);
+        final Drawable loadingResource = getResources().getDrawable(R.drawable.gs1_loading);
         TileBitmapDrawable.attachTileBitmapDrawable(worldMapView, inputStream, loadingResource, null);
 
         worldMapView.setMaxScale(8); // Sets the maximum zoom in value for the map.
 
-        // TODO: Test long click listener.
         worldMapView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                soundHandler.getInstance().playSoundFx("MENU_SELECT", 0);
+                soundHandler.getInstance().playSoundFx("MENU_SCROLL", 0);
                 return false;
             }
         });
