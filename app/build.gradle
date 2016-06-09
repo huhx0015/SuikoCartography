@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.ycorner.suikocartography"
@@ -25,9 +25,9 @@ dependencies {
     compile project(':hxgse')
 
     // ANDROID SUPPORT LIBRARIES:
-    compile 'com.android.support:support-v4:23.+'
-    compile 'com.android.support:appcompat-v7:23.+'
-    compile 'com.android.support:design:23.+'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
 
     // THIRD-PARTY LIBRARIES:
     compile 'com.jakewharton:butterknife:7.0.1'

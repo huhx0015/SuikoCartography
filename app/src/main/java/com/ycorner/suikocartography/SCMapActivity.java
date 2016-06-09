@@ -3,6 +3,8 @@ package com.ycorner.suikocartography;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
+
 import com.diegocarloslima.byakugallery.lib.TileBitmapDrawable;
 import com.diegocarloslima.byakugallery.lib.TouchImageView;
 import com.huhx0015.hxgselib.audio.HXGSEMusicEngine;
@@ -38,7 +40,7 @@ public class SCMapActivity extends Activity {
     protected void onResume() {
         super.onResume();
 
-        musicEngine.getInstance().playSongName("SONG 2", true); // TODO: Sample Suikoden Map song.
+        musicEngine.getInstance().playSongName("SONG 2", true);
     }
 
     @Override
@@ -68,5 +70,14 @@ public class SCMapActivity extends Activity {
         TileBitmapDrawable.attachTileBitmapDrawable(worldMapView, inputStream, loadingResource, null);
 
         worldMapView.setMaxScale(8); // Sets the maximum zoom in value for the map.
+
+        // TODO: Test long click listener.
+        worldMapView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                soundHandler.getInstance().playSoundFx("MENU_SELECT", 0);
+                return false;
+            }
+        });
     }
 }
