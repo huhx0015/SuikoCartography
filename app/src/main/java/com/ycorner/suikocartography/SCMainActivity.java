@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
 import com.huhx0015.hxgselib.audio.HXGSEDolbyEffects;
 import com.huhx0015.hxgselib.audio.HXGSEMusicEngine;
 import com.huhx0015.hxgselib.audio.HXGSEPhysicalSound;
@@ -21,12 +20,7 @@ public class SCMainActivity extends Activity {
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
-    // ACTIVITY VARIABLES
-    private boolean isPaused = false;
-
     // AUDIO VARIABLES
-    private HXGSEMusicEngine musicEngine;
-    private HXGSESoundHandler soundHandler;
     private String currentSong = "SONG 1";
 
     // VIEW INJECTION VARIABLES
@@ -45,8 +39,8 @@ public class SCMainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        musicEngine.getInstance().playSongName("SONG 1", true);
-        isPaused = false;
+        HXGSEMusicEngine.getInstance().playSongName(currentSong, true);
+        HXGSEPhysicalSound.disablePhysSounds(true, this); // Temporarily disables the physical button's sound effects.
     }
 
     @Override
@@ -54,7 +48,6 @@ public class SCMainActivity extends Activity {
         super.onPause();
         HXGSEMusicEngine.getInstance().pauseSong(); // Pauses any song that is playing in the background.
         HXGSEPhysicalSound.disablePhysSounds(false, this); // Re-enables the physical button's sound effects.
-        isPaused = true;
     }
 
     @Override
@@ -91,7 +84,7 @@ public class SCMainActivity extends Activity {
         suikoden_1_maps_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                soundHandler.getInstance().playSoundFx("MENU_SELECT", 0);
+                HXGSESoundHandler.getInstance().playSoundFx("MENU_SELECT", 0);
                 launchMapsIntent(SCGameUtility.SCGameID.GENSO_SUIKODEN_1);
             }
         });
@@ -104,8 +97,9 @@ public class SCMainActivity extends Activity {
     }
 
     private void initAudio() {
-        musicEngine.getInstance().initializeAudio(this);
-        soundHandler.getInstance().initializeAudio(this, 2);
+        HXGSEMusicEngine.getInstance().initializeAudio(getApplicationContext()); // Initializes the HXGSEMusic class object.
+        HXGSESoundHandler.getInstance().initializeAudio(getApplicationContext(), 2); // Initializes the HXGSESound class object.
+        HXGSEDolbyEffects.getInstance().initializeDolby(getApplicationContext()); // Initializes the HXGSEDolby class object.
     }
 
     private void launchMapsIntent(SCGameUtility.SCGameID id) {

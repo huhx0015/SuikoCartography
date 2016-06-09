@@ -22,9 +22,6 @@ public class SCMapActivity extends Activity {
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
     // AUDIO VARIABLES
-    private HXGSEMusicEngine musicEngine;
-    private HXGSESoundHandler soundHandler;
-    private boolean isPaused = false;
     private String currentSong = "SONG 2";
 
     // VIEW INJECTION VARIABLES
@@ -41,8 +38,8 @@ public class SCMapActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        musicEngine.getInstance().playSongName(currentSong, true);
-        isPaused = false;
+        HXGSEMusicEngine.getInstance().playSongName(currentSong, true);
+        HXGSEPhysicalSound.disablePhysSounds(true, this); // Temporarily disables the physical button's sound effects.
     }
 
     @Override
@@ -50,7 +47,6 @@ public class SCMapActivity extends Activity {
         super.onPause();
         HXGSEMusicEngine.getInstance().pauseSong(); // Pauses any song that is playing in the background.
         HXGSEPhysicalSound.disablePhysSounds(false, this); // Re-enables the physical button's sound effects.
-        isPaused = true;
     }
 
     /** ACTIVITY OVERRIDE METHODS ______________________________________________________________ **/
@@ -81,7 +77,7 @@ public class SCMapActivity extends Activity {
         worldMapView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                soundHandler.getInstance().playSoundFx("MENU_SCROLL", 0);
+                HXGSESoundHandler.getInstance().playSoundFx("MENU_SCROLL", 0);
                 return false;
             }
         });
