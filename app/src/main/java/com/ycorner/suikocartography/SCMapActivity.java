@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-
 import com.diegocarloslima.byakugallery.lib.TileBitmapDrawable;
 import com.diegocarloslima.byakugallery.lib.TouchImageView;
 import com.huhx0015.hxgselib.audio.HXGSEMusicEngine;
@@ -74,6 +73,7 @@ public class SCMapActivity extends Activity {
 
         worldMapView.setMaxScale(8); // Sets the maximum zoom in value for the map.
 
+        // Defines the long click listener for the map view.
         worldMapView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
