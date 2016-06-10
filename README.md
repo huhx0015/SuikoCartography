@@ -1,7 +1,7 @@
 Suiko Cartography
 =================
 
-Developer: huhx0015
+DEVELOPER: huhx0015
 
 ### SUIKO CARTOGRAPHY
 ![suikocartography_preview](https://cloud.githubusercontent.com/assets/1645482/15938651/ec249e76-2e28-11e6-9e5e-94a53f759655.gif)
