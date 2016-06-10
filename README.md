@@ -33,4 +33,5 @@ Suiko Cartography uses the Byaku Gallery library by Diego Lima to implement the 
 Suiko Cartography is a fan application and is not associated with or endorsed by KONAMI.
 
 © GENSO SUIKODEN and SUIKODEN are registered trademarks of Konami Co., Ltd.
+
 All GENSO SUIKODEN and SUIKODEN images, logos, names, music, and related media are intellectual properties of KONAMI unless otherwise noted.
