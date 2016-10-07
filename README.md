@@ -1,14 +1,14 @@
 Suiko Cartography
 =================
 
-Developer: huhx0015
+DEVELOPER: huhx0015
 
 ### SUIKO CARTOGRAPHY
 ![suikocartography_preview](https://cloud.githubusercontent.com/assets/1645482/15938651/ec249e76-2e28-11e6-9e5e-94a53f759655.gif)
 
 ## Description
 
-This is an Android application that allows users to view the world map from the classic Konami RPG Sony PlayStation 1 video game, Genso Suikoden. Users can use touch gestures to scroll in and out of the world map. In addition, this application features graphics, music, and sound effects from Suikoden, to induce nostalgia for fans of the game.
+This is a demo Android application that allows users to view the world map from the classic Konami RPG Sony PlayStation 1 video game, Genso Suikoden. Users can use touch gestures to scroll in and out of the world map. In addition, this application features graphics, music, and sound effects from Suikoden, to induce nostalgia for fans of the game.
 
 Suiko Cartography uses the Byaku Gallery library by Diego Lima to implement the loading of very large images, as well as touch gestures. Suiko Cartography also utilizes the HX Game Sound Engine library to provide music and sound effects for the application.
 
@@ -30,6 +30,8 @@ Suiko Cartography uses the Byaku Gallery library by Diego Lima to implement the 
 
 ## Copyright
 
-Suiko Cartography is a fan application and is not associated with or endorsed by KONAMI.
+Suiko Cartography is a fan application and is not associated with or endorsed by Konami Computer Entertainment Tokyo.
 
-© GENSO SUIKODEN and SUIKODEN are registered trademarks of Konami Co., Ltd.\nAll GENSO SUIKODEN and SUIKODEN images, logos, names, music, and related media are intellectual properties of KONAMI unless otherwise noted.
+© GENSO SUIKODEN and SUIKODEN are registered trademarks of Konami Computer Entertainment Tokyo.
+
+All GENSO SUIKODEN and SUIKODEN images, logos, names, music, and related media are intellectual properties of Konami Computer Entertainment Tokyo unless otherwise noted.
