@@ -10,7 +10,6 @@ import com.huhx0015.hxgselib.audio.HXGSEMusicEngine;
 import com.huhx0015.hxgselib.audio.HXGSEPhysicalSound;
 import com.huhx0015.hxgselib.audio.HXGSESoundHandler;
 import com.ycorner.suikocartography.R;
-
 import java.io.InputStream;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,7 +38,7 @@ public class SCMapActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        HXGSEMusicEngine.getInstance().playSongName(currentSong, true);
+        HXGSEMusicEngine.getInstance().playSongName(currentSong, true, this);
         HXGSEPhysicalSound.disablePhysSounds(true, this); // Temporarily disables the physical button's sound effects.
     }
 
@@ -54,7 +53,7 @@ public class SCMapActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        HXGSESoundHandler.getInstance().playSoundFx("MENU_CANCEL", 0);
+        HXGSESoundHandler.getInstance().playSoundFx("MENU_CANCEL", 0, this);
         HXGSEMusicEngine.getInstance().stopSong();
         finish();
     }
@@ -79,7 +78,7 @@ public class SCMapActivity extends AppCompatActivity {
         worldMapView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                HXGSESoundHandler.getInstance().playSoundFx("MENU_SCROLL", 0);
+                HXGSESoundHandler.getInstance().playSoundFx("MENU_SCROLL", 0, SCMapActivity.this);
                 return false;
             }
         });

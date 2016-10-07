@@ -40,7 +40,7 @@ public class SCMainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        HXGSEMusicEngine.getInstance().playSongName(currentSong, true);
+        HXGSEMusicEngine.getInstance().playSongName(currentSong, true, this);
         HXGSEPhysicalSound.disablePhysSounds(true, this); // Temporarily disables the physical button's sound effects.
     }
 
@@ -65,7 +65,7 @@ public class SCMainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        HXGSESoundHandler.getInstance().playSoundFx("MENU_CANCEL", 0);
+        HXGSESoundHandler.getInstance().playSoundFx("MENU_CANCEL", 0, this);
         HXGSEMusicEngine.getInstance().stopSong();
         finish();
     }
@@ -85,7 +85,7 @@ public class SCMainActivity extends AppCompatActivity {
         suikoden_1_maps_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HXGSESoundHandler.getInstance().playSoundFx("MENU_SELECT", 0);
+                HXGSESoundHandler.getInstance().playSoundFx("MENU_SELECT", 0, SCMainActivity.this);
                 launchMapsIntent(SCGameUtility.SCGameID.GENSO_SUIKODEN_1);
             }
         });
@@ -98,9 +98,9 @@ public class SCMainActivity extends AppCompatActivity {
     }
 
     private void initAudio() {
-        HXGSEMusicEngine.getInstance().initializeAudio(getApplicationContext()); // Initializes the HXGSEMusic class object.
-        HXGSESoundHandler.getInstance().initializeAudio(getApplicationContext(), 2); // Initializes the HXGSESound class object.
-        HXGSEDolbyEffects.getInstance().initializeDolby(getApplicationContext()); // Initializes the HXGSEDolby class object.
+        HXGSEMusicEngine.getInstance().initializeAudio(); // Initializes the HXGSEMusic class object.
+        HXGSESoundHandler.getInstance().initializeAudio(this, 2); // Initializes the HXGSESound class object.
+        HXGSEDolbyEffects.getInstance().initializeDolby(this); // Initializes the HXGSEDolby class object.
     }
 
     private void launchMapsIntent(SCGameUtility.SCGameID id) {

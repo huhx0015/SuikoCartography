@@ -1,2 +1,2 @@
-include ':hxgse', ':app'
+include ':app', ':hxgse'
 include ':ByakuGallery'
