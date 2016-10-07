@@ -11,7 +11,7 @@ import com.huhx0015.hxgselib.audio.HXGSEPhysicalSound;
 import com.huhx0015.hxgselib.audio.HXGSESoundHandler;
 import com.ycorner.suikocartography.R;
 import java.io.InputStream;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -25,7 +25,7 @@ public class SCMapActivity extends AppCompatActivity {
     private String currentSong = "SONG 2";
 
     // VIEW INJECTION VARIABLES
-    @Bind(R.id.suikoden_map_view) TouchImageView worldMapView;
+    @BindView(R.id.suikoden_map_view) TouchImageView worldMapView;
 
     /** ACTIVITY LIFECYCLE METHODS _____________________________________________________________ **/
 

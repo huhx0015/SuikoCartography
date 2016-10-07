@@ -13,7 +13,7 @@ import com.huhx0015.hxgselib.audio.HXGSESoundHandler;
 import com.ycorner.suikocartography.R;
 import com.ycorner.suikocartography.utility.SCConstants;
 import com.ycorner.suikocartography.utility.SCGameUtility;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import it.sephiroth.android.library.picasso.Picasso;
 
@@ -25,8 +25,8 @@ public class SCMainActivity extends AppCompatActivity {
     private String currentSong = "SONG 1";
 
     // VIEW INJECTION VARIABLES
-    @Bind(R.id.sc_suikoden_1_maps_button) Button suikoden_1_maps_button;
-    @Bind(R.id.sc_suikoden_1_background) ImageView suikoden_1_background;
+    @BindView(R.id.sc_suikoden_1_maps_button) Button suikoden_1_maps_button;
+    @BindView(R.id.sc_suikoden_1_background) ImageView suikoden_1_background;
 
     /** ACTIVITY LIFECYCLE METHODS _____________________________________________________________ **/
 
