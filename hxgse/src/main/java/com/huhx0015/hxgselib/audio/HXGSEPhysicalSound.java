@@ -16,20 +16,29 @@ public class HXGSEPhysicalSound {
     /** CLASS FUNCTIONALITY ____________________________________________________________________ **/
 
     // disablePhysicalSounds(): Enables or disables the devices physical button's sound effects.
+    // Note: Android 7.0 and above requires "android.permission.ACCESS_NOTIFICATION_POLICY".
     public static void disablePhysSounds(boolean mode, Context context) {
 
-        AudioManager mgr = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        // ANDROID 2.3 - ANDROID 6.0:
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            AudioManager mgr = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
-            if (mode) {
-                mgr.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, 0);
-            } else {
-                mgr.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_UNMUTE, 0);
+            // ANDROID 6.0+:
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+                if (mode) {
+                    mgr.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, 0);
+                } else {
+                    mgr.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_UNMUTE, 0);
+                }
+
             }
 
-        } else {
-            mgr.setStreamMute(AudioManager.STREAM_SYSTEM, mode);
+            // ANDROID 2.3 - ANDROID 5.1:
+            else {
+                mgr.setStreamMute(AudioManager.STREAM_SYSTEM, mode);
+            }
         }
     }
 }
