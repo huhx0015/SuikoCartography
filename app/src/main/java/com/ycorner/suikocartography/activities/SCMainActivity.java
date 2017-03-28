@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import com.huhx0015.hxgselib.audio.HXGSEDolbyEffects;
 import com.huhx0015.hxgselib.audio.HXGSEMusicEngine;
 import com.huhx0015.hxgselib.audio.HXGSEPhysicalSound;
 import com.huhx0015.hxgselib.audio.HXGSESoundHandler;
@@ -58,7 +57,6 @@ public class SCMainActivity extends AppCompatActivity {
         // Releases all audio-related instances if the application is terminating.
         HXGSEMusicEngine.getInstance().releaseMedia();
         HXGSESoundHandler.getInstance().releaseSound();
-        HXGSEDolbyEffects.getInstance().releaseDolbyEffects();
     }
 
     /** ACTIVITY OVERRIDE METHODS ______________________________________________________________ **/
@@ -100,7 +98,6 @@ public class SCMainActivity extends AppCompatActivity {
     private void initAudio() {
         HXGSEMusicEngine.getInstance().initializeAudio(); // Initializes the HXGSEMusic class object.
         HXGSESoundHandler.getInstance().initializeAudio(this, 2); // Initializes the HXGSESound class object.
-        HXGSEDolbyEffects.getInstance().initializeDolby(this); // Initializes the HXGSEDolby class object.
     }
 
     private void launchMapsIntent(SCGameUtility.SCGameID id) {
