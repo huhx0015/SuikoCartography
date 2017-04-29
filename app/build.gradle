@@ -20,9 +20,10 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // INTEGRATED LIBRARIES:
     compile project(':ByakuGallery')
-    compile project(':hxgse')
+    compile project(':hxaudio')
 
     // ANDROID SUPPORT LIBRARIES:
     compile 'com.android.support:support-v4:25.3.1'

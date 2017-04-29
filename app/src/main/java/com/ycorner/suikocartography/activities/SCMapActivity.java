@@ -1,14 +1,15 @@
 package com.ycorner.suikocartography.activities;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import com.diegocarloslima.byakugallery.lib.TileBitmapDrawable;
 import com.diegocarloslima.byakugallery.lib.TouchImageView;
-import com.huhx0015.hxgselib.audio.HXGSEMusicEngine;
-import com.huhx0015.hxgselib.audio.HXGSEPhysicalSound;
-import com.huhx0015.hxgselib.audio.HXGSESoundHandler;
+import com.huhx0015.hxaudio.audio.HXMusic;
+import com.huhx0015.hxaudio.audio.HXSound;
+import com.huhx0015.hxaudio.utils.HXAudioPlayerUtils;
 import com.ycorner.suikocartography.R;
 import java.io.InputStream;
 import butterknife.BindView;
@@ -21,9 +22,6 @@ public class SCMapActivity extends AppCompatActivity {
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
-    // AUDIO VARIABLES
-    private String currentSong = "SONG 2";
-
     // VIEW INJECTION VARIABLES
     @BindView(R.id.suikoden_map_view) TouchImageView worldMapView;
 
@@ -32,30 +30,33 @@ public class SCMapActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initAudio();
         initView();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        HXGSEMusicEngine.getInstance().playSongName(currentSong, true, this);
-        HXGSEPhysicalSound.disablePhysSounds(true, this); // Temporarily disables the physical button's sound effects.
+        HXMusic.resume(this);
+        HXAudioPlayerUtils.enableSystemSound(false, this); // Temporarily disables the physical button's sound effects.
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        HXGSEMusicEngine.getInstance().pauseSong(); // Pauses any song that is playing in the background.
-        HXGSEPhysicalSound.disablePhysSounds(false, this); // Re-enables the physical button's sound effects.
+        HXMusic.pause(); // Pauses any song that is playing in the background.
+        HXAudioPlayerUtils.enableSystemSound(false, this); // Re-enables the physical button's sound effects.
     }
 
     /** ACTIVITY OVERRIDE METHODS ______________________________________________________________ **/
 
     @Override
     public void onBackPressed() {
-        HXGSESoundHandler.getInstance().playSoundFx("MENU_CANCEL", 0, this);
-        HXGSEMusicEngine.getInstance().stopSong();
-        finish();
+        HXSound.sound()
+                .load(R.raw.gs_menu_cancel)
+                .play(this);
+        HXMusic.stop();
+        launchTitleIntent();
     }
 
     /** INITIALIZATION METHODS _________________________________________________________________ **/
@@ -63,8 +64,13 @@ public class SCMapActivity extends AppCompatActivity {
     private void initView() {
         setContentView(R.layout.activity_map);
         ButterKnife.bind(this);
-
         initMapImage();
+    }
+
+    private void initAudio() {
+        HXMusic.music()
+                .load(R.raw.gs1_tiny_characters_in_a_huge_world)
+                .play(this);
     }
 
     private void initMapImage() {
@@ -78,9 +84,19 @@ public class SCMapActivity extends AppCompatActivity {
         worldMapView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                HXGSESoundHandler.getInstance().playSoundFx("MENU_SCROLL", 0, SCMapActivity.this);
+                HXSound.sound()
+                        .load(R.raw.gs_menu_scroll)
+                        .play(SCMapActivity.this);
                 return false;
             }
         });
+    }
+
+    /** INTENT METHODS _________________________________________________________________________ **/
+
+    private void launchTitleIntent() {
+        Intent titleIntent = new Intent(this, SCMainActivity.class);
+        startActivity(titleIntent);
+        finish();
     }
 }

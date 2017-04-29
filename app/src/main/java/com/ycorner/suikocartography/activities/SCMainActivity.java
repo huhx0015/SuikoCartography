@@ -6,12 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import com.huhx0015.hxgselib.audio.HXGSEMusicEngine;
-import com.huhx0015.hxgselib.audio.HXGSEPhysicalSound;
-import com.huhx0015.hxgselib.audio.HXGSESoundHandler;
+import com.huhx0015.hxaudio.audio.HXMusic;
+import com.huhx0015.hxaudio.audio.HXSound;
+import com.huhx0015.hxaudio.utils.HXAudioPlayerUtils;
 import com.ycorner.suikocartography.R;
 import com.ycorner.suikocartography.utility.SCConstants;
 import com.ycorner.suikocartography.utility.SCGameUtility;
+import java.util.ArrayList;
+import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import it.sephiroth.android.library.picasso.Picasso;
@@ -20,8 +22,8 @@ public class SCMainActivity extends AppCompatActivity {
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
-    // AUDIO VARIABLES
-    private String currentSong = "SONG 1";
+    // SYSTEM VARIABLES
+    private boolean isTerminating;
 
     // VIEW INJECTION VARIABLES
     @BindView(R.id.sc_suikoden_1_maps_button) Button suikoden_1_maps_button;
@@ -32,22 +34,22 @@ public class SCMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initView();
         initAudio();
+        initView();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        HXGSEMusicEngine.getInstance().playSongName(currentSong, true, this);
-        HXGSEPhysicalSound.disablePhysSounds(true, this); // Temporarily disables the physical button's sound effects.
+        HXMusic.resume(this);
+        HXAudioPlayerUtils.enableSystemSound(false, this); // Temporarily disables the physical button's sound effects.
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        HXGSEMusicEngine.getInstance().pauseSong(); // Pauses any song that is playing in the background.
-        HXGSEPhysicalSound.disablePhysSounds(false, this); // Re-enables the physical button's sound effects.
+        HXMusic.pause(); // Pauses any song that is playing in the background.
+        HXAudioPlayerUtils.enableSystemSound(true, this); // Re-enables the physical button's sound effects.
     }
 
     @Override
@@ -55,16 +57,21 @@ public class SCMainActivity extends AppCompatActivity {
         super.onDestroy();
 
         // Releases all audio-related instances if the application is terminating.
-        HXGSEMusicEngine.getInstance().releaseMedia();
-        HXGSESoundHandler.getInstance().releaseSound();
+        if (isTerminating) {
+            HXMusic.clear();
+            HXSound.clear();
+        }
     }
 
     /** ACTIVITY OVERRIDE METHODS ______________________________________________________________ **/
 
     @Override
     public void onBackPressed() {
-        HXGSESoundHandler.getInstance().playSoundFx("MENU_CANCEL", 0, this);
-        HXGSEMusicEngine.getInstance().stopSong();
+        HXSound.sound()
+                .load(R.raw.gs_menu_cancel)
+                .play(this);
+        HXMusic.stop();
+        isTerminating = true;
         finish();
     }
 
@@ -83,7 +90,9 @@ public class SCMainActivity extends AppCompatActivity {
         suikoden_1_maps_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HXGSESoundHandler.getInstance().playSoundFx("MENU_SELECT", 0, SCMainActivity.this);
+                HXSound.sound()
+                        .load(R.raw.gs_menu_select)
+                        .play(SCMainActivity.this);
                 launchMapsIntent(SCGameUtility.SCGameID.GENSO_SUIKODEN_1);
             }
         });
@@ -96,14 +105,20 @@ public class SCMainActivity extends AppCompatActivity {
     }
 
     private void initAudio() {
-        HXGSEMusicEngine.getInstance().initializeAudio(); // Initializes the HXGSEMusic class object.
-        HXGSESoundHandler.getInstance().initializeAudio(this, 2); // Initializes the HXGSESound class object.
+        HXMusic.music()
+                .load(R.raw.gs1_beginning_theme)
+                .play(this);
+
+        List<Integer> soundEffectList = new ArrayList<>();
+        soundEffectList.add(R.raw.gs_menu_select);
+        soundEffectList.add(R.raw.gs_menu_cancel);
+        soundEffectList.add(R.raw.gs_menu_scroll);
+        HXSound.load(soundEffectList, this);
     }
 
     private void launchMapsIntent(SCGameUtility.SCGameID id) {
 
         String extraGameIdentifier = "";
-
         switch (id) {
             case GENSO_SUIKODEN_1:
                 extraGameIdentifier = SCConstants.GENSO_SUIKODEN_1_ID;
@@ -123,9 +138,11 @@ public class SCMainActivity extends AppCompatActivity {
         }
 
         if (!extraGameIdentifier.isEmpty()) {
+            HXMusic.stop();
             Intent mapsIntent = new Intent(this, SCMapActivity.class);
             mapsIntent.putExtra(SCConstants.EXTRA_GAME_NAME, extraGameIdentifier);
             startActivity(mapsIntent);
+            finish();
         }
     }
 }
