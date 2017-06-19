@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@android:color/black">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/suikoden_map_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/gs1_map_background"
+        android:scaleType="centerCrop"/>
 
     <com.diegocarloslima.byakugallery.lib.TouchImageView
         android:id="@+id/suikoden_map_view"
@@ -11,20 +18,20 @@
         android:layout_gravity="center" />
 
     <LinearLayout
+        android:id="@+id/suikoden_map_title_container"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
         android:layout_gravity="top|center_horizontal"
         android:layout_marginTop="16dp"
         android:background="@drawable/gs1_window_unselected"
-        android:gravity="center"
-        android:id="@+id/suikoden_map_title_container">
+        android:gravity="center">
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/suikoden_map_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Scarlet Moon Empire"
-            android:id="@+id/suikoden_map_title"
             android:layout_gravity="center"
             android:typeface="monospace"
             android:textColor="@android:color/white"

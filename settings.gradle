@@ -1,2 +1,1 @@
-include ':app', ':hxaudio'
-include ':ByakuGallery'
+include ':app', ':hxaudio', ':ByakuGallery'

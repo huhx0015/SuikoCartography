@@ -10,8 +10,8 @@ import com.huhx0015.hxaudio.audio.HXMusic;
 import com.huhx0015.hxaudio.audio.HXSound;
 import com.huhx0015.hxaudio.utils.HXAudioPlayerUtils;
 import com.ycorner.suikocartography.R;
-import com.ycorner.suikocartography.utility.SCConstants;
-import com.ycorner.suikocartography.utility.SCGameUtility;
+import com.ycorner.suikocartography.utils.SCConstants;
+import com.ycorner.suikocartography.utils.SCGameUtility;
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
@@ -107,6 +107,7 @@ public class SCMainActivity extends AppCompatActivity {
     private void initAudio() {
         HXMusic.music()
                 .load(R.raw.gs1_beginning_theme)
+                .gapless(true)
                 .play(this);
 
         List<Integer> soundEffectList = new ArrayList<>();
