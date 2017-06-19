@@ -115,24 +115,7 @@ public class SCMainActivity extends AppCompatActivity {
 
     private void launchMapsIntent(SCGameUtility.SCGameID id) {
 
-        String extraGameIdentifier = "";
-        switch (id) {
-            case GENSO_SUIKODEN_1:
-                extraGameIdentifier = SCConstants.GENSO_SUIKODEN_1_ID;
-                break;
-            case GENSO_SUIKODEN_2:
-                extraGameIdentifier = SCConstants.GENSO_SUIKODEN_2_ID;
-                break;
-            case GENSO_SUIKODEN_3:
-                extraGameIdentifier = SCConstants.GENSO_SUIKODEN_3_ID;
-                break;
-            case GENSO_SUIKODEN_4:
-                extraGameIdentifier = SCConstants.GENSO_SUIKODEN_4_ID;
-                break;
-            case GENSO_SUIKODEN_5:
-                extraGameIdentifier = SCConstants.GENSO_SUIKODEN_5_ID;
-                break;
-        }
+        String extraGameIdentifier = SCGameUtility.getGameIdentity(id);
 
         if (!extraGameIdentifier.isEmpty()) {
             HXMusic.stop();
