@@ -3,23 +3,22 @@ package com.ycorner.suikocartography.activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import com.diegocarloslima.byakugallery.lib.TileBitmapDrawable;
-import com.diegocarloslima.byakugallery.lib.TouchImageView;
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.huhx0015.hxaudio.audio.HXMusic;
 import com.huhx0015.hxaudio.audio.HXSound;
 import com.huhx0015.hxaudio.utils.HXAudioPlayerUtils;
 import com.squareup.picasso.Picasso;
 import com.ycorner.suikocartography.R;
 import com.ycorner.suikocartography.constants.SCConstants;
-import java.io.InputStream;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnLongClick;
@@ -44,7 +43,8 @@ public class SCMapActivity extends AppCompatActivity {
     @BindView(R.id.suikoden_loading_animation) AppCompatImageView mapLoadingAnimation;
     @BindView(R.id.suikoden_map_background) AppCompatImageView mapBackgroundImage;
     @BindView(R.id.suikoden_map_title) AppCompatTextView mapTitleText;
-    @BindView(R.id.suikoden_map_view) TouchImageView mapView;
+    @BindView(R.id.suikoden_map_view_container) FrameLayout mapViewContainer;
+    @BindView(R.id.suikoden_map_view) SubsamplingScaleImageView mapView;
 
     /** ACTIVITY LIFECYCLE METHODS _____________________________________________________________ **/
 
@@ -97,34 +97,40 @@ public class SCMapActivity extends AppCompatActivity {
     /** INIT METHODS ___________________________________________________________________________ **/
 
     private void initView() {
-        String mapTitle;
+        int mapLoadingResource;
+        int mapResource;
         int mapBackgroundResource;
         int musicResource;
-        InputStream inputStream;
-        Drawable loadingResource;
+        String mapTitle;
 
         switch (gameId) {
             case SCConstants.GENSO_SUIKODEN_1_ID:
                 mapTitle = getString(R.string.suikoden_1_map_name);
+                mapLoadingResource = R.drawable.gs1_loading_animation;
+                mapResource = R.raw.gs1_world_map;
                 mapBackgroundResource = R.drawable.gs1_map_background;
                 musicResource = R.raw.gs1_tiny_characters_in_a_huge_world;
-                inputStream = getResources().openRawResource(R.raw.gs1_world_map);
-                loadingResource = ContextCompat.getDrawable(this, R.drawable.gs1_loading);
                 break;
             case SCConstants.GENSO_SUIKODEN_2_ID:
                 mapTitle = getString(R.string.suikoden_2_map_name);
+                mapLoadingResource = R.drawable.gs1_loading_animation;
+                mapResource = R.raw.gs1_world_map;
                 mapBackgroundResource = R.drawable.gs2_map_background;
                 musicResource = R.raw.gs1_tiny_characters_in_a_huge_world;
-                inputStream = getResources().openRawResource(R.raw.gs2_world_map);
-                loadingResource = ContextCompat.getDrawable(this, R.drawable.gs1_loading);
                 break;
             default:
                 mapTitle = getString(R.string.suikoden_1_map_name);
+                mapLoadingResource = R.drawable.gs1_loading_animation;
+                mapResource = R.raw.gs1_world_map;
                 mapBackgroundResource = R.drawable.gs1_map_background;
                 musicResource = R.raw.gs1_tiny_characters_in_a_huge_world;
-                inputStream = getResources().openRawResource(R.raw.gs1_world_map);
-                loadingResource = ContextCompat.getDrawable(this, R.drawable.gs1_loading);
         }
+
+        // LOADING ANIMATION:
+        mapLoadingAnimation.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        mapLoadingAnimation.setBackgroundResource(mapLoadingResource);
+        loadingAnimation = (AnimationDrawable) mapLoadingAnimation.getBackground();
+        enableLoadingAnimation(true);
 
         // MAP TITLE:
         mapTitleText.setText(mapTitle);
@@ -144,17 +150,33 @@ public class SCMapActivity extends AppCompatActivity {
                 .play(this);
 
         // TOUCH MAP VIEW:
-        TileBitmapDrawable.attachTileBitmapDrawable(mapView, inputStream, loadingResource, null);
-        mapView.setMaxScale(8); // Sets the maximum zoom in value for the map.
+        mapView.setImage(ImageSource.resource(mapResource));
+        mapView.setOnImageEventListener(new SubsamplingScaleImageView.OnImageEventListener() {
+            @Override
+            public void onReady() {}
+
+            @Override
+            public void onImageLoaded() {
+                mapViewContainer.setVisibility(View.VISIBLE);
+                mapLoadingAnimation.setVisibility(View.GONE);
+                enableLoadingAnimation(false);
+            }
+
+            @Override
+            public void onPreviewLoadError(Exception e) {}
+
+            @Override
+            public void onImageLoadError(Exception e) {}
+
+            @Override
+            public void onTileLoadError(Exception e) {}
+
+            @Override
+            public void onPreviewReleased() {}
+        });
     }
 
     /** ANIMATION METHODS ______________________________________________________________________ **/
-
-    private void initAnimation() {
-        mapLoadingAnimation.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        mapLoadingAnimation.setBackgroundResource(R.drawable.gs1_loading_animation);
-        loadingAnimation = (AnimationDrawable) mapLoadingAnimation.getBackground();
-    }
 
     private void enableLoadingAnimation(boolean isEnabled) {
         try {
