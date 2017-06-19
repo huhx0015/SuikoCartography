@@ -133,7 +133,6 @@ public class SCMainActivity extends AppCompatActivity {
     /** INTENT METHODS _________________________________________________________________________ **/
 
     private void launchMapsIntent(SCGameUtility.SCGameID id) {
-
         String extraGameIdentifier = SCGameUtility.getGameIdentity(id);
 
         if (!extraGameIdentifier.isEmpty()) {

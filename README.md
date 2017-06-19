@@ -8,9 +8,9 @@ DEVELOPER: huhx0015
 
 ## Description
 
-This is a demo Android application that allows users to view the world map from the classic Konami RPG Sony PlayStation 1 video game, Genso Suikoden. Users can use touch gestures to scroll in and out of the world map. In addition, this application features graphics, music, and sound effects from Suikoden, to induce nostalgia for fans of the game.
+This is a demo Android application that allows users to view the world maps from the classic Konami RPG Sony PlayStation 1 video games, Genso Suikoden and Genso Suikoden II. Users can use touch gestures to scroll in and out of the world map. In addition, this application features graphics, music, and sound effects from Suikoden I & II, to induce nostalgia for fans of the game.
 
-Suiko Cartography uses the Byaku Gallery library by Diego Lima to implement the loading of very large images, as well as touch gestures. Suiko Cartography also utilizes the HX Audio Player library to provide music and sound effects for the application.
+Suiko Cartography uses the Byaku Gallery library by Diego Lima to handle the loading of very large images, as well as touch gestures. Suiko Cartography also utilizes the HX Audio Player library to provide music and sound effects for the application.
 
 ## Resources
 
@@ -21,8 +21,9 @@ Suiko Cartography uses the Byaku Gallery library by Diego Lima to implement the 
 
 ### Map
 
-* The Video Game Atlas: http://vgmaps.com/Atlas/PSX/Suikoden-World.png
-* World Map Ripped By: mechaskrom
+* Suikoden I: http://vgmaps.com/Atlas/PSX/Suikoden-World.png
+* Suikoden II: http://vgmaps.com/Atlas/PSX/SuikodenII-World.png
+* World Maps Ripped By: mechaskrom
 
 ### Sprites
 
