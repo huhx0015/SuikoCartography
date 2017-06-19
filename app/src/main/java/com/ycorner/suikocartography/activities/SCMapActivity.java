@@ -2,12 +2,15 @@ package com.ycorner.suikocartography.activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
+import android.widget.ImageView;
 import com.diegocarloslima.byakugallery.lib.TileBitmapDrawable;
 import com.diegocarloslima.byakugallery.lib.TouchImageView;
 import com.huhx0015.hxaudio.audio.HXMusic;
@@ -28,10 +31,17 @@ public class SCMapActivity extends AppCompatActivity {
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
+    // ANIMATION VARIABLES
+    private AnimationDrawable loadingAnimation;
+
     // GAME VARIABLES
     private String gameId;
 
+    // LOGGING VARIABLES
+    private static final String LOG_TAG = SCMapActivity.class.getSimpleName();
+
     // VIEW INJECTION VARIABLES
+    @BindView(R.id.suikoden_loading_animation) AppCompatImageView mapLoadingAnimation;
     @BindView(R.id.suikoden_map_background) AppCompatImageView mapBackgroundImage;
     @BindView(R.id.suikoden_map_title) AppCompatTextView mapTitleText;
     @BindView(R.id.suikoden_map_view) TouchImageView mapView;
@@ -136,6 +146,26 @@ public class SCMapActivity extends AppCompatActivity {
         // TOUCH MAP VIEW:
         TileBitmapDrawable.attachTileBitmapDrawable(mapView, inputStream, loadingResource, null);
         mapView.setMaxScale(8); // Sets the maximum zoom in value for the map.
+    }
+
+    /** ANIMATION METHODS ______________________________________________________________________ **/
+
+    private void initAnimation() {
+        mapLoadingAnimation.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        mapLoadingAnimation.setBackgroundResource(R.drawable.gs1_loading_animation);
+        loadingAnimation = (AnimationDrawable) mapLoadingAnimation.getBackground();
+    }
+
+    private void enableLoadingAnimation(boolean isEnabled) {
+        try {
+            if (isEnabled) {
+                loadingAnimation.start();
+            } else {
+                loadingAnimation.stop();
+            }
+        } catch (NullPointerException e) {
+            Log.e(LOG_TAG, "enableLoadingAnimation(): ERROR: Loading animation failed to start.");
+        }
     }
 
     /** CLICK LISTENER METHODS _________________________________________________________________ **/
