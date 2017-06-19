@@ -7,6 +7,6 @@
     android:fitsSystemWindows="true"
     tools:context=".activities.SCMainActivity">
 
-    <include layout="@layout/content_scmain" />
+    <include layout="@layout/content_main" />
 
 </android.support.design.widget.CoordinatorLayout>

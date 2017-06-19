@@ -1,9 +1,10 @@
 package com.ycorner.suikocartography.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
+import android.support.v7.widget.AppCompatImageView;
 import com.huhx0015.hxaudio.audio.HXMusic;
 import com.huhx0015.hxaudio.audio.HXSound;
 import com.huhx0015.hxaudio.utils.HXAudioPlayerUtils;
@@ -25,7 +26,8 @@ public class SCMainActivity extends AppCompatActivity {
     private boolean isTerminating;
 
     // VIEW INJECTION VARIABLES
-    @BindView(R.id.sc_suikoden_1_background) ImageView suikoden_1_background;
+    @BindView(R.id.main_suikoden_1_background) AppCompatImageView suikoden1Background;
+    @BindView(R.id.main_suikoden_2_background) AppCompatImageView suikoden2Background;
 
     /** ACTIVITY LIFECYCLE METHODS _____________________________________________________________ **/
 
@@ -82,9 +84,18 @@ public class SCMainActivity extends AppCompatActivity {
     }
 
     private void initBackground() {
+
+        // SUIKODEN I:
         Picasso.with(this)
                 .load(R.drawable.gs1_mural)
-                .into(suikoden_1_background);
+                .config(Bitmap.Config.RGB_565)
+                .into(suikoden1Background);
+
+        // SUIKODEN II:
+        Picasso.with(this)
+                .load(R.drawable.gs1_mural)
+                .config(Bitmap.Config.RGB_565)
+                .into(suikoden2Background);
     }
 
     private void initAudio() {
@@ -103,12 +114,20 @@ public class SCMainActivity extends AppCompatActivity {
 
     /** CLICK LISTENER METHODS _________________________________________________________________ **/
 
-    @OnClick(R.id.sc_suikoden_1_maps_button)
-    public void onMapButtonClicked() {
+    @OnClick(R.id.main_suikoden_1_start_button)
+    public void onSuikoden1StartButtonClicked() {
         HXSound.sound()
                 .load(R.raw.gs_menu_select)
                 .play(SCMainActivity.this);
         launchMapsIntent(SCGameUtility.SCGameID.GENSO_SUIKODEN_1);
+    }
+
+    @OnClick(R.id.main_suikoden_2_start_button)
+    public void onSuikoden2StartButtonClicked() {
+        HXSound.sound()
+                .load(R.raw.gs_menu_select)
+                .play(SCMainActivity.this);
+        launchMapsIntent(SCGameUtility.SCGameID.GENSO_SUIKODEN_2);
     }
 
     /** INTENT METHODS _________________________________________________________________________ **/

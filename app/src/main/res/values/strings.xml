@@ -1,4 +1,12 @@
 <resources>
+
+    <!--APPLICATION STRINGS-->
     <string name="app_name">Suiko Cartography</string>
-    <string name="action_settings">Settings</string>
+
+    <!--GAME STRINGS-->
+    <string name="suikoden_1_button">SUIKODEN I</string>
+    <string name="suikoden_2_button">SUIKODEN II</string>
+    <string name="suikoden_1_map_name">Lake Toran</string>
+    <string name="suikoden_2_map_name">Dunan Lake</string>
+
 </resources>

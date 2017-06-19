@@ -8,7 +8,6 @@
         android:id="@+id/suikoden_map_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/gs1_map_background"
         android:scaleType="centerCrop"/>
 
     <com.diegocarloslima.byakugallery.lib.TouchImageView
@@ -18,7 +17,6 @@
         android:layout_gravity="center" />
 
     <LinearLayout
-        android:id="@+id/suikoden_map_title_container"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
@@ -31,7 +29,6 @@
             android:id="@+id/suikoden_map_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Scarlet Moon Empire"
             android:layout_gravity="center"
             android:typeface="monospace"
             android:textColor="@android:color/white"
