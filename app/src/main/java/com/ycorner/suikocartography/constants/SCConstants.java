@@ -1,4 +1,4 @@
-package com.ycorner.suikocartography.utils;
+package com.ycorner.suikocartography.constants;
 
 /**
  * Created by huhx0015 on 12/21/15.

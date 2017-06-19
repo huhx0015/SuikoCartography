@@ -3,20 +3,19 @@ package com.ycorner.suikocartography.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import com.huhx0015.hxaudio.audio.HXMusic;
 import com.huhx0015.hxaudio.audio.HXSound;
 import com.huhx0015.hxaudio.utils.HXAudioPlayerUtils;
+import com.squareup.picasso.Picasso;
 import com.ycorner.suikocartography.R;
-import com.ycorner.suikocartography.utils.SCConstants;
+import com.ycorner.suikocartography.constants.SCConstants;
 import com.ycorner.suikocartography.utils.SCGameUtility;
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import it.sephiroth.android.library.picasso.Picasso;
+import butterknife.OnClick;
 
 public class SCMainActivity extends AppCompatActivity {
 
@@ -26,7 +25,6 @@ public class SCMainActivity extends AppCompatActivity {
     private boolean isTerminating;
 
     // VIEW INJECTION VARIABLES
-    @BindView(R.id.sc_suikoden_1_maps_button) Button suikoden_1_maps_button;
     @BindView(R.id.sc_suikoden_1_background) ImageView suikoden_1_background;
 
     /** ACTIVITY LIFECYCLE METHODS _____________________________________________________________ **/
@@ -75,27 +73,12 @@ public class SCMainActivity extends AppCompatActivity {
         finish();
     }
 
-    /** VIEW METHODS ___________________________________________________________________________ **/
+    /** INIT METHODS ___________________________________________________________________________ **/
 
     private void initView() {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        initButtons();
         initBackground();
-    }
-
-    private void initButtons() {
-
-        suikoden_1_maps_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HXSound.sound()
-                        .load(R.raw.gs_menu_select)
-                        .play(SCMainActivity.this);
-                launchMapsIntent(SCGameUtility.SCGameID.GENSO_SUIKODEN_1);
-            }
-        });
     }
 
     private void initBackground() {
@@ -107,6 +90,7 @@ public class SCMainActivity extends AppCompatActivity {
     private void initAudio() {
         HXMusic.music()
                 .load(R.raw.gs1_beginning_theme)
+                .looped(true)
                 .gapless(true)
                 .play(this);
 
@@ -116,6 +100,18 @@ public class SCMainActivity extends AppCompatActivity {
         soundEffectList.add(R.raw.gs_menu_scroll);
         HXSound.load(soundEffectList, this);
     }
+
+    /** CLICK LISTENER METHODS _________________________________________________________________ **/
+
+    @OnClick(R.id.sc_suikoden_1_maps_button)
+    public void onMapButtonClicked() {
+        HXSound.sound()
+                .load(R.raw.gs_menu_select)
+                .play(SCMainActivity.this);
+        launchMapsIntent(SCGameUtility.SCGameID.GENSO_SUIKODEN_1);
+    }
+
+    /** INTENT METHODS _________________________________________________________________________ **/
 
     private void launchMapsIntent(SCGameUtility.SCGameID id) {
 

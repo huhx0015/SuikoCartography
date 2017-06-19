@@ -70,6 +70,7 @@ public class SCMapActivity extends AppCompatActivity {
     private void initAudio() {
         HXMusic.music()
                 .load(R.raw.gs1_tiny_characters_in_a_huge_world)
+                .looped(true)
                 .gapless(true)
                 .play(this);
     }
