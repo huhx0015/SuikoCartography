@@ -21,6 +21,7 @@ import com.huhx0015.hxaudio.utils.HXAudioPlayerUtils;
 import com.squareup.picasso.Picasso;
 import com.ycorner.suikocartography.R;
 import com.ycorner.suikocartography.constants.SCConstants;
+import com.ycorner.suikocartography.utils.SCGameUtility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnLongClick;
@@ -107,7 +108,7 @@ public class SCMapActivity extends AppCompatActivity {
         int mapResource;
         int mapBackgroundResource;
         int mapTitleBackgroundResource;
-        int musicResource;
+        int musicResource = SCGameUtility.getRandomMusic(gameId);
         String mapTitle;
 
         switch (gameId) {
@@ -117,7 +118,6 @@ public class SCMapActivity extends AppCompatActivity {
                 mapResource = R.drawable.gs1_world_map;
                 mapBackgroundResource = R.drawable.gs1_map_background;
                 mapTitleBackgroundResource = R.drawable.gs1_window_unselected;
-                musicResource = R.raw.gs1_tiny_characters_in_a_huge_world;
                 break;
             case SCConstants.GENSO_SUIKODEN_2_ID:
                 mapTitle = getString(R.string.suikoden_2_map_name);
@@ -125,7 +125,6 @@ public class SCMapActivity extends AppCompatActivity {
                 mapResource = R.drawable.gs2_world_map;
                 mapBackgroundResource = R.drawable.gs2_map_background;
                 mapTitleBackgroundResource = R.drawable.gs2_window_unselected;
-                musicResource = R.raw.gs1_tiny_characters_in_a_huge_world;
                 break;
             default:
                 mapTitle = getString(R.string.suikoden_1_map_name);
@@ -133,7 +132,6 @@ public class SCMapActivity extends AppCompatActivity {
                 mapResource = R.drawable.gs1_world_map;
                 mapBackgroundResource = R.drawable.gs1_map_background;
                 mapTitleBackgroundResource = R.drawable.gs1_window_unselected;
-                musicResource = R.raw.gs1_tiny_characters_in_a_huge_world;
         }
 
         // LOADING ANIMATION:
