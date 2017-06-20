@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/gs1_window_frame"
+            android:background="@drawable/gs2_window_frame"
             android:text="@string/suikoden_2_button"
             android:textColor="@android:color/white"
             android:textSize="18sp"

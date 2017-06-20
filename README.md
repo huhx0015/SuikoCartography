@@ -22,13 +22,13 @@ Suiko Cartography uses the Subsampling Scale Image View library by Dave Morrisse
 
 ### Map
 
-* Suikoden I: http://vgmaps.com/Atlas/PSX/Suikoden-World.png
-* Suikoden II: http://vgmaps.com/Atlas/PSX/SuikodenII-World.png
-* World Maps Ripped By: mechaskrom
+* VGMaps.com - Suikoden I (Ripped By: mechaskrom): http://vgmaps.com/Atlas/PSX/Suikoden-World.png
+* VGMaps.com - Suikoden II (Ripped By: mechaskrom): http://vgmaps.com/Atlas/PSX/SuikodenII-World.png
 
 ### Sprites
 
-* The Spriter's Resource: http://www.spriters-resource.com/playstation/suikoden/
+* The Spriter's Resource - Suikoden I: http://www.spriters-resource.com/playstation/suikoden/
+* The Spriter's Resource - Suikoden II: https://www.spriters-resource.com/playstation/suikodenii/
 
 ## Copyright
 

@@ -21,12 +21,12 @@
             android:layout_gravity="center" />
 
         <LinearLayout
+            android:id="@+id/suikoden_map_title_container"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_gravity="top|center_horizontal"
             android:layout_marginTop="16dp"
-            android:background="@drawable/gs1_window_unselected"
             android:gravity="center">
 
             <android.support.v7.widget.AppCompatTextView

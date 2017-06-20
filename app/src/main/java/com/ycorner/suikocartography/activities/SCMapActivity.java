@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
@@ -45,6 +46,7 @@ public class SCMapActivity extends AppCompatActivity {
     @BindView(R.id.suikoden_map_background) AppCompatImageView mapBackgroundImage;
     @BindView(R.id.suikoden_map_title) AppCompatTextView mapTitleText;
     @BindView(R.id.suikoden_map_view_container) FrameLayout mapViewContainer;
+    @BindView(R.id.suikoden_map_title_container) LinearLayout mapTitleContainer;
     @BindView(R.id.suikoden_loading_container) RelativeLayout mapLoadingContainer;
     @BindView(R.id.suikoden_map_view) SubsamplingScaleImageView mapView;
 
@@ -104,6 +106,7 @@ public class SCMapActivity extends AppCompatActivity {
         int mapLoadingResource;
         int mapResource;
         int mapBackgroundResource;
+        int mapTitleBackgroundResource;
         int musicResource;
         String mapTitle;
 
@@ -113,6 +116,7 @@ public class SCMapActivity extends AppCompatActivity {
                 mapLoadingResource = R.drawable.gs1_loading_animation;
                 mapResource = R.drawable.gs1_world_map;
                 mapBackgroundResource = R.drawable.gs1_map_background;
+                mapTitleBackgroundResource = R.drawable.gs1_window_unselected;
                 musicResource = R.raw.gs1_tiny_characters_in_a_huge_world;
                 break;
             case SCConstants.GENSO_SUIKODEN_2_ID:
@@ -120,6 +124,7 @@ public class SCMapActivity extends AppCompatActivity {
                 mapLoadingResource = R.drawable.gs2_loading_animation;
                 mapResource = R.drawable.gs2_world_map;
                 mapBackgroundResource = R.drawable.gs2_map_background;
+                mapTitleBackgroundResource = R.drawable.gs2_window_unselected;
                 musicResource = R.raw.gs1_tiny_characters_in_a_huge_world;
                 break;
             default:
@@ -127,6 +132,7 @@ public class SCMapActivity extends AppCompatActivity {
                 mapLoadingResource = R.drawable.gs1_loading_animation;
                 mapResource = R.drawable.gs1_world_map;
                 mapBackgroundResource = R.drawable.gs1_map_background;
+                mapTitleBackgroundResource = R.drawable.gs1_window_unselected;
                 musicResource = R.raw.gs1_tiny_characters_in_a_huge_world;
         }
 
@@ -137,6 +143,7 @@ public class SCMapActivity extends AppCompatActivity {
         enableLoadingAnimation(true);
 
         // MAP TITLE:
+        mapTitleContainer.setBackgroundResource(mapTitleBackgroundResource);
         mapTitleText.setText(mapTitle);
 
         // MAP BACKGROUND:
