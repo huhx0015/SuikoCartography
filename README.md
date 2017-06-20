@@ -4,7 +4,7 @@ Suiko Cartography
 DEVELOPER: huhx0015
 
 ### SUIKO CARTOGRAPHY
-![suikocartography_preview](https://cloud.githubusercontent.com/assets/1645482/15938651/ec249e76-2e28-11e6-9e5e-94a53f759655.gif)
+![suikocartography_preview](https://user-images.githubusercontent.com/1645482/27316757-d31493f6-5536-11e7-89b9-2befdbd9357e.gif)
 
 ## Description
 
