@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.huhx0015.hxaudio.audio.HXMusic;
@@ -44,6 +45,7 @@ public class SCMapActivity extends AppCompatActivity {
     @BindView(R.id.suikoden_map_background) AppCompatImageView mapBackgroundImage;
     @BindView(R.id.suikoden_map_title) AppCompatTextView mapTitleText;
     @BindView(R.id.suikoden_map_view_container) FrameLayout mapViewContainer;
+    @BindView(R.id.suikoden_loading_container) RelativeLayout mapLoadingContainer;
     @BindView(R.id.suikoden_map_view) SubsamplingScaleImageView mapView;
 
     /** ACTIVITY LIFECYCLE METHODS _____________________________________________________________ **/
@@ -59,6 +61,8 @@ public class SCMapActivity extends AppCompatActivity {
         } else {
             gameId = getIntent().getExtras().getString(SCConstants.EXTRA_GAME_NAME);
         }
+
+        Log.d(LOG_TAG, "onCreate(): Game selection: " + gameId);
 
         initView();
     }
@@ -107,21 +111,21 @@ public class SCMapActivity extends AppCompatActivity {
             case SCConstants.GENSO_SUIKODEN_1_ID:
                 mapTitle = getString(R.string.suikoden_1_map_name);
                 mapLoadingResource = R.drawable.gs1_loading_animation;
-                mapResource = R.raw.gs1_world_map;
+                mapResource = R.drawable.gs1_world_map;
                 mapBackgroundResource = R.drawable.gs1_map_background;
                 musicResource = R.raw.gs1_tiny_characters_in_a_huge_world;
                 break;
             case SCConstants.GENSO_SUIKODEN_2_ID:
                 mapTitle = getString(R.string.suikoden_2_map_name);
-                mapLoadingResource = R.drawable.gs1_loading_animation;
-                mapResource = R.raw.gs1_world_map;
+                mapLoadingResource = R.drawable.gs2_loading_animation;
+                mapResource = R.drawable.gs2_world_map;
                 mapBackgroundResource = R.drawable.gs2_map_background;
                 musicResource = R.raw.gs1_tiny_characters_in_a_huge_world;
                 break;
             default:
                 mapTitle = getString(R.string.suikoden_1_map_name);
                 mapLoadingResource = R.drawable.gs1_loading_animation;
-                mapResource = R.raw.gs1_world_map;
+                mapResource = R.drawable.gs1_world_map;
                 mapBackgroundResource = R.drawable.gs1_map_background;
                 musicResource = R.raw.gs1_tiny_characters_in_a_huge_world;
         }
@@ -139,7 +143,6 @@ public class SCMapActivity extends AppCompatActivity {
         Picasso.with(this)
                 .load(mapBackgroundResource)
                 .config(Bitmap.Config.RGB_565)
-                .centerCrop()
                 .into(mapBackgroundImage);
 
         // MUSIC:
@@ -150,30 +153,41 @@ public class SCMapActivity extends AppCompatActivity {
                 .play(this);
 
         // TOUCH MAP VIEW:
-        mapView.setImage(ImageSource.resource(mapResource));
         mapView.setOnImageEventListener(new SubsamplingScaleImageView.OnImageEventListener() {
             @Override
-            public void onReady() {}
+            public void onReady() {
+                Log.d(LOG_TAG, "onReady(): Image is ready.");
+            }
 
             @Override
             public void onImageLoaded() {
+                Log.d(LOG_TAG, "onImageLoaded(): Image was loaded.");
                 mapViewContainer.setVisibility(View.VISIBLE);
-                mapLoadingAnimation.setVisibility(View.GONE);
+                mapLoadingContainer.setVisibility(View.GONE);
                 enableLoadingAnimation(false);
             }
 
             @Override
-            public void onPreviewLoadError(Exception e) {}
+            public void onPreviewLoadError(Exception e) {
+                Log.e(LOG_TAG, "onPreviewError(): Image preview load failed.");
+            }
 
             @Override
-            public void onImageLoadError(Exception e) {}
+            public void onImageLoadError(Exception e) {
+                Log.e(LOG_TAG, "onImageLoadError(): Image load failed.");
+            }
 
             @Override
-            public void onTileLoadError(Exception e) {}
+            public void onTileLoadError(Exception e) {
+                Log.e(LOG_TAG, "onTileLoadError(): Tile load failed.");
+            }
 
             @Override
-            public void onPreviewReleased() {}
+            public void onPreviewReleased() {
+                Log.d(LOG_TAG, "onPreviewReleased(): Preview was released.");
+            }
         });
+        mapView.setImage(ImageSource.resource(mapResource));
     }
 
     /** ANIMATION METHODS ______________________________________________________________________ **/
@@ -193,10 +207,11 @@ public class SCMapActivity extends AppCompatActivity {
     /** CLICK LISTENER METHODS _________________________________________________________________ **/
 
     @OnLongClick(R.id.suikoden_map_view)
-    public void onSuikodenMapViewLongClicked() {
+    public boolean onSuikodenMapViewLongClicked() {
         HXSound.sound()
                 .load(R.raw.gs_menu_scroll)
                 .play(SCMapActivity.this);
+        return true;
     }
 
     /** INTENT METHODS _________________________________________________________________________ **/

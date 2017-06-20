@@ -134,13 +134,11 @@ public class SCMainActivity extends AppCompatActivity {
 
     private void launchMapsIntent(SCGameUtility.SCGameID id) {
         String extraGameIdentifier = SCGameUtility.getGameIdentity(id);
+        HXMusic.stop();
 
-        if (!extraGameIdentifier.isEmpty()) {
-            HXMusic.stop();
-            Intent mapsIntent = new Intent(this, SCMapActivity.class);
-            mapsIntent.putExtra(SCConstants.EXTRA_GAME_NAME, extraGameIdentifier);
-            startActivity(mapsIntent);
-            finish();
-        }
+        Intent mapsIntent = new Intent(this, SCMapActivity.class);
+        mapsIntent.putExtra(SCConstants.EXTRA_GAME_NAME, extraGameIdentifier);
+        startActivity(mapsIntent);
+        finish();
     }
 }

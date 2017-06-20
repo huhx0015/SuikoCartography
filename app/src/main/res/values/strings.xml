@@ -3,6 +3,9 @@
     <!--APPLICATION STRINGS-->
     <string name="app_name">Suiko Cartography</string>
 
+    <!--LOADING STRINGS-->
+    <string name="now_loading">NOW LOADING</string>
+
     <!--GAME STRINGS-->
     <string name="suikoden_1_button">SUIKODEN I</string>
     <string name="suikoden_2_button">SUIKODEN II</string>

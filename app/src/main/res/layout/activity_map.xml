@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:layout_height="match_parent">
 
     <FrameLayout
         android:id="@+id/suikoden_map_view_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_height="match_parent">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/suikoden_map_background"
@@ -45,11 +43,30 @@
 
     </FrameLayout>
 
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/suikoden_loading_animation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitCenter"
-        android:layout_centerInParent="true"/>
+    <RelativeLayout
+        android:id="@+id/suikoden_loading_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/suikoden_loading_animation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/suikoden_loading_animation"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="@string/now_loading"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:typeface="monospace" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
