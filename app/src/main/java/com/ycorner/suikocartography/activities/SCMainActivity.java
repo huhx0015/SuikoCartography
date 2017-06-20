@@ -1,6 +1,7 @@
 package com.ycorner.suikocartography.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -75,6 +76,12 @@ public class SCMainActivity extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        initView();
+    }
+
     /** INIT METHODS ___________________________________________________________________________ **/
 
     private void initView() {
@@ -93,7 +100,7 @@ public class SCMainActivity extends AppCompatActivity {
 
         // SUIKODEN II:
         Picasso.with(this)
-                .load(R.drawable.gs1_mural)
+                .load(R.drawable.gs2_mural)
                 .config(Bitmap.Config.RGB_565)
                 .into(suikoden2Background);
     }
