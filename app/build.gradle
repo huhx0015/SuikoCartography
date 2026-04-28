@@ -42,5 +42,5 @@ dependencies {
 
     // THIRD-PARTY LIBRARIES:
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
-    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }
