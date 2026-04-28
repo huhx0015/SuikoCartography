@@ -4,20 +4,18 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatImageView;
+import android.view.View;
+import androidx.appcompat.app.AppCompatActivity;
 import com.huhx0015.hxaudio.audio.HXMusic;
 import com.huhx0015.hxaudio.audio.HXSound;
 import com.huhx0015.hxaudio.utils.HXAudioPlayerUtils;
 import com.squareup.picasso.Picasso;
 import com.ycorner.suikocartography.R;
 import com.ycorner.suikocartography.constants.SCConstants;
+import com.ycorner.suikocartography.databinding.ActivityMainBinding;
 import com.ycorner.suikocartography.utils.SCGameUtility;
 import java.util.ArrayList;
 import java.util.List;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class SCMainActivity extends AppCompatActivity {
 
@@ -26,9 +24,8 @@ public class SCMainActivity extends AppCompatActivity {
     // SYSTEM VARIABLES
     private boolean isTerminating;
 
-    // VIEW INJECTION VARIABLES
-    @BindView(R.id.main_suikoden_1_background) AppCompatImageView suikoden1Background;
-    @BindView(R.id.main_suikoden_2_background) AppCompatImageView suikoden2Background;
+    // VIEW BINDING VARIABLES
+    private ActivityMainBinding binding;
 
     /** ACTIVITY LIFECYCLE METHODS _____________________________________________________________ **/
 
@@ -85,8 +82,20 @@ public class SCMainActivity extends AppCompatActivity {
     /** INIT METHODS ___________________________________________________________________________ **/
 
     private void initView() {
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        binding.contentMain.mainSuikoden1StartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSuikoden1StartButtonClicked();
+            }
+        });
+        binding.contentMain.mainSuikoden2StartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSuikoden2StartButtonClicked();
+            }
+        });
         initBackground();
     }
 
@@ -96,13 +105,13 @@ public class SCMainActivity extends AppCompatActivity {
         Picasso.with(this)
                 .load(R.drawable.gs1_mural)
                 .config(Bitmap.Config.RGB_565)
-                .into(suikoden1Background);
+                .into(binding.contentMain.mainSuikoden1Background);
 
         // SUIKODEN II:
         Picasso.with(this)
                 .load(R.drawable.gs2_mural)
                 .config(Bitmap.Config.RGB_565)
-                .into(suikoden2Background);
+                .into(binding.contentMain.mainSuikoden2Background);
     }
 
     private void initAudio() {
@@ -121,7 +130,6 @@ public class SCMainActivity extends AppCompatActivity {
 
     /** CLICK LISTENER METHODS _________________________________________________________________ **/
 
-    @OnClick(R.id.main_suikoden_1_start_button)
     public void onSuikoden1StartButtonClicked() {
         HXSound.sound()
                 .load(R.raw.gs_menu_select)
@@ -129,7 +137,6 @@ public class SCMainActivity extends AppCompatActivity {
         launchMapsIntent(SCGameUtility.SCGameID.GENSO_SUIKODEN_1);
     }
 
-    @OnClick(R.id.main_suikoden_2_start_button)
     public void onSuikoden2StartButtonClicked() {
         HXSound.sound()
                 .load(R.raw.gs_menu_select)

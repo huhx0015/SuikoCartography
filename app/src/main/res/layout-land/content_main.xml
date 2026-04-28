@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activities.SCMainActivity"
     tools:showIn="@layout/activity_main"
     android:background="@android:color/black">
@@ -14,13 +13,13 @@
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/main_suikoden_1_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop" />
 
-        <android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/main_suikoden_1_start_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,13 +42,13 @@
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/main_suikoden_2_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop" />
 
-        <android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/main_suikoden_2_start_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -4,15 +4,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.huhx0015.hxaudio.audio.HXMusic;
@@ -21,10 +16,8 @@ import com.huhx0015.hxaudio.utils.HXAudioPlayerUtils;
 import com.squareup.picasso.Picasso;
 import com.ycorner.suikocartography.R;
 import com.ycorner.suikocartography.constants.SCConstants;
+import com.ycorner.suikocartography.databinding.ActivityMapBinding;
 import com.ycorner.suikocartography.utils.SCGameUtility;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnLongClick;
 
 /**
  * Created by huhx0015 on 12/17/15.
@@ -42,22 +35,22 @@ public class SCMapActivity extends AppCompatActivity {
     // LOGGING VARIABLES
     private static final String LOG_TAG = SCMapActivity.class.getSimpleName();
 
-    // VIEW INJECTION VARIABLES
-    @BindView(R.id.suikoden_loading_animation) AppCompatImageView mapLoadingAnimation;
-    @BindView(R.id.suikoden_map_background) AppCompatImageView mapBackgroundImage;
-    @BindView(R.id.suikoden_map_title) AppCompatTextView mapTitleText;
-    @BindView(R.id.suikoden_map_view_container) FrameLayout mapViewContainer;
-    @BindView(R.id.suikoden_map_title_container) LinearLayout mapTitleContainer;
-    @BindView(R.id.suikoden_loading_container) RelativeLayout mapLoadingContainer;
-    @BindView(R.id.suikoden_map_view) SubsamplingScaleImageView mapView;
+    // VIEW BINDING VARIABLES
+    private ActivityMapBinding binding;
 
     /** ACTIVITY LIFECYCLE METHODS _____________________________________________________________ **/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
-        ButterKnife.bind(this);
+        binding = ActivityMapBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        binding.suikodenMapView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return onSuikodenMapViewLongClicked();
+            }
+        });
 
         if (savedInstanceState != null) {
             gameId = savedInstanceState.getString(SCConstants.EXTRA_GAME_NAME);
@@ -135,20 +128,20 @@ public class SCMapActivity extends AppCompatActivity {
         }
 
         // LOADING ANIMATION:
-        mapLoadingAnimation.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        mapLoadingAnimation.setBackgroundResource(mapLoadingResource);
-        loadingAnimation = (AnimationDrawable) mapLoadingAnimation.getBackground();
+        binding.suikodenLoadingAnimation.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        binding.suikodenLoadingAnimation.setBackgroundResource(mapLoadingResource);
+        loadingAnimation = (AnimationDrawable) binding.suikodenLoadingAnimation.getBackground();
         enableLoadingAnimation(true);
 
         // MAP TITLE:
-        mapTitleContainer.setBackgroundResource(mapTitleBackgroundResource);
-        mapTitleText.setText(mapTitle);
+        binding.suikodenMapTitleContainer.setBackgroundResource(mapTitleBackgroundResource);
+        binding.suikodenMapTitle.setText(mapTitle);
 
         // MAP BACKGROUND:
         Picasso.with(this)
                 .load(mapBackgroundResource)
                 .config(Bitmap.Config.RGB_565)
-                .into(mapBackgroundImage);
+                .into(binding.suikodenMapBackground);
 
         // MUSIC:
         HXMusic.music()
@@ -158,7 +151,7 @@ public class SCMapActivity extends AppCompatActivity {
                 .play(this);
 
         // TOUCH MAP VIEW:
-        mapView.setOnImageEventListener(new SubsamplingScaleImageView.OnImageEventListener() {
+        binding.suikodenMapView.setOnImageEventListener(new SubsamplingScaleImageView.OnImageEventListener() {
             @Override
             public void onReady() {
                 Log.d(LOG_TAG, "onReady(): Image is ready.");
@@ -167,8 +160,8 @@ public class SCMapActivity extends AppCompatActivity {
             @Override
             public void onImageLoaded() {
                 Log.d(LOG_TAG, "onImageLoaded(): Image was loaded.");
-                mapViewContainer.setVisibility(View.VISIBLE);
-                mapLoadingContainer.setVisibility(View.GONE);
+                binding.suikodenMapViewContainer.setVisibility(View.VISIBLE);
+                binding.suikodenLoadingContainer.setVisibility(View.GONE);
                 enableLoadingAnimation(false);
             }
 
@@ -192,7 +185,7 @@ public class SCMapActivity extends AppCompatActivity {
                 Log.d(LOG_TAG, "onPreviewReleased(): Preview was released.");
             }
         });
-        mapView.setImage(ImageSource.resource(mapResource));
+        binding.suikodenMapView.setImage(ImageSource.resource(mapResource));
     }
 
     /** ANIMATION METHODS ______________________________________________________________________ **/
@@ -211,7 +204,6 @@ public class SCMapActivity extends AppCompatActivity {
 
     /** CLICK LISTENER METHODS _________________________________________________________________ **/
 
-    @OnLongClick(R.id.suikoden_map_view)
     public boolean onSuikodenMapViewLongClicked() {
         HXSound.sound()
                 .load(R.raw.gs_menu_scroll)

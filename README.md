@@ -16,7 +16,6 @@ Suiko Cartography uses the Subsampling Scale Image View library by Dave Morrisse
 
 ### Libraries
 
-* ButterKnife: http://jakewharton.github.io/butterknife/
 * HX Audio Player: https://github.com/huhx0015/HXAudioPlayer
 * Subsampling Scale Image View: https://github.com/davemorrissey/subsampling-scale-image-view
 
